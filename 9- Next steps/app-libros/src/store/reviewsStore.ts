@@ -11,30 +11,20 @@ interface Review {
 
 interface ReviewsState {
   reviews: Review[];
-  addReview: (bookId: string, text: string, rating: number) => void;
+  addReview: (review: Review) => void;
   voteReview: (id: string, delta: number) => void;
 }
 
 export const useReviewsStore = create<ReviewsState>((set) => ({
     reviews: [],
-    addReview: (bookId, text, rating) =>
-        set((state: { reviews: any; }) => ({
-        reviews: [
-            ...state.reviews,
-            {
-            id: Date.now().toString(),
-            bookId,
-            user: "Anonymous",
-            text,
-            rating,
-            votes: 0,
-            },
-        ],
-        })),
+    addReview: (review) =>
+      set((state) => ({
+        reviews: [...state.reviews, review], // Aquí 'state.reviews' es un arreglo de 'Review'
+      })),
     voteReview: (id, delta) =>
-        set((state) => ({
+      set((state) => ({
         reviews: state.reviews.map((review) =>
-            review.id === id ? {...review, votes: review.votes + delta} : review
+          review.id === id ? { ...review, votes: review.votes + delta } : review
         ),
-        })),
-}));
+      })),
+  }));

@@ -1,7 +1,8 @@
+import { Review } from "@/services/reviewsService";
 import { NextRequest, NextResponse } from "next/server";
 
 // Simularemos un almacenamiento en memoria
-let reviews: any[] = [];
+const reviews: Review[] = [];
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -20,7 +21,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Datos incompletos" }, { status: 400 });
   }
 
-  const review = {
+  const review: Review = {
     id: Date.now().toString(),
     bookId,
     user,

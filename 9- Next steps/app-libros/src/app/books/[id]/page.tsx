@@ -1,6 +1,7 @@
 import { fetchBookDetails } from "@/services/booksService";
 import ReviewList from "@/components/ReviewList";
 import ReviewForm from "@/components/ReviewForm";
+import Image from "next/image";
 
 export default async function BookPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -10,7 +11,7 @@ export default async function BookPage({ params }: { params: Promise<{ id: strin
     <div className="p-6 max-w-4xl mx-auto">
       <div className="flex flex-col md:flex-row gap-6">
         {book.volumeInfo.imageLinks?.thumbnail && (
-          <img
+          <Image
             src={book.volumeInfo.imageLinks.thumbnail}
             alt={book.volumeInfo.title}
             className="w-48 md:w-64 rounded shadow"
